@@ -3,62 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Cliente - Gestão Pro</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; background: #f4f7f6; }
-        
-        /* Sidebar Padronizada */
-        .sidebar { 
-            width: 250px; height: 100vh; background: #2c3e50; color: white; padding: 20px; 
-            position: fixed; display: flex; flex-direction: column; box-sizing: border-box; 
-        }
-        .sidebar h2 { text-align: center; font-size: 1.2rem; }
-        .sidebar hr { border: 0; border-top: 1px solid #3e4f5f; margin: 15px 0; }
-        .sidebar a { color: white; text-decoration: none; display: block; padding: 12px 10px; border-bottom: 1px solid #3e4f5f; transition: 0.3s; }
-        .sidebar a:hover { background: #34495e; padding-left: 15px; }
-        .botao-final { margin-top: auto; background: #16a085; color: white; border-radius: 5px; border-bottom: none !important; margin-bottom: 10px; font-weight: bold; text-align: center; }
-
-        /* Área de Conteúdo Centralizada */
-        .content { 
-            margin-left: 250px; 
-            padding: 30px; 
-            width: calc(100% - 250px); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .card { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            width: 100%; 
-            max-width: 500px; 
-        }
-
-        h2 { color: #2c3e50; margin-top: 0; text-align: center; }
-        label { display: block; margin-top: 15px; font-weight: bold; color: #34495e; font-size: 14px; }
-        input { width: 100%; padding: 12px; margin: 5px 0 5px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 15px; }
-        
-        .btn-salvar { 
-            width: 100%; 
-            padding: 15px; 
-            background: #27ae60; 
-            color: white; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            font-weight: bold; 
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-        .btn-salvar:hover { background: #219150; }
-        
-        .voltar { display: block; text-align: center; margin-top: 15px; color: #7f8c8d; text-decoration: none; font-size: 14px; }
-    </style>
+    <link rel="stylesheet" href="css/EstiloGeral.css?v=1.0">
 </head>
 <body>
 
@@ -73,60 +18,29 @@
 </div>
 
 <div class="content">
-    <div class="card">
-        <h2>👤 Novo Cadastro de Cliente</h2>
+    <div class="card-tabela" style="max-width: 500px; width: 100%;">
+        <h2 style="text-align: center; color: #2c3e50;">👤 Novo Cadastro de Cliente</h2>
         
-        <label>Nome Completo / Razão Social</label>
+        <label style="display: block; font-weight: bold; margin-top: 15px;">Nome Completo / Razão Social</label>
         <input type="text" id="nomeCliente" placeholder="Ex: João da Silva ou Empresa LTDA">
         
-        <label>Endereço Completo</label>
+        <label style="display: block; font-weight: bold; margin-top: 15px;">Endereço Completo</label>
         <input type="text" id="enderecoCliente" placeholder="Rua, Número, Bairro, Cidade - UF">
         
-        <label>Telefone (Opcional)</label>
+        <label style="display: block; font-weight: bold; margin-top: 15px;">Telefone (Opcional)</label>
         <input type="text" id="telefoneCliente" placeholder="(00) 00000-0000">
 
-        <button class="btn-salvar" onclick="salvarCliente()">CADASTRAR CLIENTE</button>
-        <a href="clientes.html" class="voltar">⬅ Cancelar e Voltar</a>
+        <button class="btn-novo" style="width: 100%; margin-top: 20px; height: 45px; background-color: #27ae60 !important;" onclick="salvarCliente()">
+            CADASTRAR CLIENTE
+        </button>
+        
+        <a href="clientes.html" style="display: block; text-align: center; margin-top: 15px; color: #7f8c8d; text-decoration: none; font-size: 14px;">
+            ⬅ Cancelar e Voltar
+        </a>
     </div>
 </div>
 
-<script>
-    async function salvarCliente() {
-        const nome = document.getElementById('nomeCliente').value;
-        const endereco = document.getElementById('enderecoCliente').value;
-        const telefone = document.getElementById('telefoneCliente').value;
-
-        if(!nome || !endereco) {
-            alert("Por favor, preencha o nome e o endereço!");
-            return;
-        }
-
-        const cliente = {
-            nome: nome,
-            endereco: endereco,
-            telefone: telefone
-        };
-
-        // Simulação de envio para API (Ajuste a URL conforme seu back-end)
-        try {
-            const response = await fetch('/api/Clientes', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(cliente)
-            });
-
-            if (response.ok) {
-                alert("✅ Cliente cadastrado com sucesso!");
-                window.location.href = "clientes.html"; 
-            } else {
-                alert("❌ Erro ao cadastrar cliente.");
-            }
-        } catch (error) {
-            console.error("Erro:", error);
-            alert("❌ Erro de conexão com o servidor.");
-        }
-    }
-</script>
+<script src="js/cadastro_cliente.js"></script>
 
 </body>
 </html>

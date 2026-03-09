@@ -5,9 +5,10 @@ body {
     display: flex; 
     background: #f4f7f6; 
     color: #333;
+    min-height: 100vh;
 }
 
-/* --- SIDEBAR (BARRA LATERAL) --- */
+/* --- SIDEBAR (BARRA LATERAL FIXA) --- */
 .sidebar { 
     width: 250px; 
     height: 100vh; 
@@ -15,12 +16,12 @@ body {
     color: white; 
     padding: 20px; 
     position: fixed; 
-    display: flex; 
+    display: flex; /* Essencial para o botão ir para o fim */
     flex-direction: column; 
     box-sizing: border-box; 
     z-index: 1000;
 }
-.sidebar h2 { text-align: center; font-size: 1.2rem; margin-bottom: 20px; }
+.sidebar h2 { text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: #ecf0f1; }
 .sidebar hr { border: 0; border-top: 1px solid #3e4f5f; margin: 15px 0; }
 .sidebar a { 
     color: white; 
@@ -29,12 +30,14 @@ body {
     padding: 12px 10px; 
     border-bottom: 1px solid #3e4f5f; 
     transition: 0.3s; 
+    font-size: 14px;
 }
 .sidebar a:hover { background: #34495e; padding-left: 15px; }
 
+/* BOTÃO CAIXA (Sempre no final da sidebar) */
 .botao-final { 
-    margin-top: auto; 
-    background: #16a085; 
+    margin-top: auto !important; /* Empurra o botão para o rodapé da sidebar */
+    background: #16a085 !important; 
     color: white !important; 
     border-radius: 5px; 
     font-weight: bold; 
@@ -50,18 +53,30 @@ body {
     padding: 30px; 
     width: calc(100% - 250px); 
     box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
 }
 
-/* --- CABEÇALHOS (TÍTULO + BOTÃO AZUL) --- */
+/* CLASSE PARA CENTRALIZAR (Use em: Cadastro e Financeiro) */
+.centralizar-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Isso faz ocupar o espaço entre a sidebar e o fim da tela */
+    min-height: 80vh;
+}
+
+/* --- CABEÇALHOS --- */
 .header-acoes, .header-estoque {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    width: 100%;
 }
 
-/* BOTÃO AZUL PADRONIZADO */
-/* --- BOTÃO AZUL "BLINDADO" --- */
+/* --- BOTÕES PADRONIZADOS --- */
 .btn-novo {
     background-color: #3498db !important;
     color: #ffffff !important;
@@ -69,75 +84,98 @@ body {
     border-radius: 6px !important;
     text-decoration: none !important;
     font-weight: bold !important;
-    display: inline-flex !important; /* Muda de inline-block para flex */
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
     transition: 0.3s;
     border: none !important;
     cursor: pointer !important;
     font-size: 14px !important;
-    height: 40px; /* Define uma altura fixa para não parecer texto solto */
+    height: 40px;
 }
+.btn-novo:hover { background-color: #2980b9 !important; }
 
-.btn-novo:hover {
-    background-color: #2980b9 !important;
+.btn-sucesso {
+    background-color: #27ae60 !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
 }
+.btn-sucesso:hover { background-color: #219150 !important; }
 
-/* --- CARTÕES (AREA BRANCA) --- */
-.card-tabela {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    margin-top: 10px;
-}
-
-/* --- TABELAS --- */
-table { 
-    width: 100%; 
-    border-collapse: collapse; 
-}
-th { 
-    background: #34495e; 
-    color: white; 
-    padding: 15px; 
-    text-align: left; 
-    font-size: 0.9rem;
-    text-transform: uppercase;
-}
-td { 
-    padding: 12px 15px; 
-    border-bottom: 1px solid #eee; 
-    vertical-align: middle; 
-}
-tbody tr:hover { background: #f9f9f9; }
-
-/* Botão Excluir e botões dentro de tabelas */
-button.btn-excluir, td button {
+button.btn-excluir, .btn-perigo {
     background-color: #ff4d4d !important;
     color: white !important;
     border: none;
-    padding: 6px 12px;
+    padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
     font-size: 12px;
     transition: 0.3s;
 }
-button.btn-excluir:hover, td button:hover { background-color: #ff3333 !important; }
+button.btn-excluir:hover { background-color: #ff3333 !important; }
 
-/* --- BADGES E EXTRAS --- */
-.badge-venda, .badge-orcamento {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 11px;
-    text-align: center;
+/* --- CARTÕES (CARDS) --- */
+.card-tabela, .card-formulario {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
-.badge-venda { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-.badge-orcamento { background-color: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; }
 
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
-.form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
+/* --- FORMULÁRIOS --- */
+.form-group { margin-bottom: 15px; text-align: left; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px; }
+.form-group input, .form-group select { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* --- TABELAS --- */
+table { width: 100%; border-collapse: collapse; }
+th { 
+    background: #34495e; 
+    color: white; 
+    padding: 15px; 
+    text-align: left; 
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+td { 
+    padding: 12px 15px; 
+    border-bottom: 1px solid #eee; 
+    font-size: 14px;
+}
+tbody tr:hover { background: #f9f9f9; }
+
+/* --- UTILITÁRIOS (STATUS) --- */
+.status-caixa {
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* Nova classe apenas para o Financeiro subir o conteúdo */
+.alinhamento-topo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Mantém centralizado de lado */
+    justify-content: flex-start; /* Joga para o topo */
+    padding-top: 20px;      /* Espaço para não grudar no teto */
+    flex: 1;
+}
+.status-aberto { background: #d4edda; color: #155724; }
+.status-fechado { background: #f8d7da; color: #721c24; }
