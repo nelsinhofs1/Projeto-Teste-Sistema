@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Estoque - Gestão Pro</title>
+    <link rel="stylesheet" href="css/EstiloGeral.css?v=1.1">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>📦 Gestão Pro</h2>
+    <hr>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="clientes.html">👥 Clientes</a>
+    <a href="estoque.html">📋 Estoque</a>
+    <a href="pedido.html">🛒 Novo Pedido</a>
+    <a href="financeiro.html" class="botao-final">💰 CAIXA - FINANCEIRO</a> 
+</div>
+
+<div class="content">
+    <div class="header-estoque">
+        <h1>Resumo de Inventário</h1>
+        <a href="cadastro.html" class="btn-novo">+ Novo Produto</a>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <input type="text" id="inputPesquisaProduto" placeholder="Pesquisar produto por nome (Ex: P, PE...)" 
+               autocomplete="off"
+               style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px;">
+    </div>
+
+    <div class="card-tabela">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Estoque</th>
+                    <th>Preço de Venda</th>
+                    <th>Status</th>
+                    <th style="text-align: center;">Ações</th> 
+                </tr>
+            </thead>
+            <tbody id="listaEstoque">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="js/estoque.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Financeiro - Gestão Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; background: #f4f7f6; }
+        
+        /* Sidebar Padrão */
+        .sidebar { width: 250px; height: 100vh; background: #2c3e50; color: white; padding: 20px; position: fixed; }
+        .sidebar h2 { text-align: center; font-size: 1.2rem; }
+        .sidebar hr { border: 0; border-top: 1px solid #3e4f5f; margin: 15px 0; }
+        .sidebar a { color: white; text-decoration: none; display: block; padding: 12px 10px; border-bottom: 1px solid #3e4f5f; transition: 0.3s; }
+        .sidebar a:hover { background: #34495e; padding-left: 15px; }
+
+        .content { margin-left: 270px; padding: 30px; width: calc(100% - 270px); display: flex; flex-direction: column; align-items: center; }
+        
+        /* Cards de Controle */
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        .status-header { margin-bottom: 20px; padding: 10px; border-radius: 8px; font-weight: bold; }
+        .status-aberto { background: #d4edda; color: #155724; }
+        .status-fechado { background: #f8d7da; color: #721c24; }
+
+        input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 18px; text-align: center; box-sizing: border-box; }
+        
+        .btn-acao { width: 100%; padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        .btn-abrir { background: #27ae60; color: white; }
+        .btn-abrir:hover { background: #219150; }
+        .btn-fechar { background: #e74c3c; color: white; margin-top: 20px; }
+        .btn-fechar:hover { background: #c0392b; }
+        
+        .resumo-valores { background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: left; border: 1px solid #eee; }
+        .linha-valor { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 16px; color: #555; }
+        .total-geral { font-size: 22px; font-weight: bold; color: #2c3e50; border-top: 2px solid #ddd; padding-top: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>📦 Gestão Pro</h2>
+    <hr>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="clientes.html">👥 Clientes</a>
+    <a href="estoque.html">📋 Estoque</a>
+    <a href="pedido.html">🛒 Novo Pedido</a>
+    <a href="financeiro.html" style="background: #16a085; color: white; border-radius: 5px;">💰 Fluxo de Caixa (Financeiro)</a> 
+</div>
+
+<div class="content">
+    <h1>Controle de Fluxo de Caixa</h1>
+    <div id="caixaContainer" class="card">
+        </div>
+</div>
+
+<script>
+    let dadosCaixa = JSON.parse(localStorage.getItem('controleCaixa')) || { aberto: false, valorInicial: 0 };
+
+    async function carregarTela() {
+        const container = document.getElementById('caixaContainer');
+        
+        if (!dadosCaixa.aberto) {
+            container.innerHTML = `
+                <div class="status-header status-fechado">STATUS: CAIXA FECHADO</div>
+                <h3>Abertura de Turno</h3>
+                <p>Quanto dinheiro há na gaveta para troco?</p>
+                <input type="number" id="valorInput" placeholder="R$ 0,00" step="0.01">
+                <button class="btn-acao btn-abrir" onclick="abrirCaixa()">ABRIR CAIXA AGORA</button>
+            `;
+        } else {
+            let totalVendasDia = 0;
+            try {
+                // CORREÇÃO: Usando a rota correta da sua API
+                const res = await fetch('/api/Vendas'); 
+                if (res.ok) {
+                    const vendas = await res.json();
+                    
+                    // Pegamos a data de hoje formatada em string (Ex: 25/02/2026)
+                    const hoje = new Date().toLocaleDateString('pt-BR');
+                    
+                    totalVendasDia = vendas
+                        .filter(v => new Date(v.dataVenda).toLocaleDateString('pt-BR') === hoje)
+                        .reduce((acc, v) => acc + v.valorTotal, 0);
+                }
+            } catch (e) {
+                console.warn("Erro ao buscar vendas da API:", e);
+            }
+
+            const totalNoCaixa = dadosCaixa.valorInicial + totalVendasDia;
+
+            container.innerHTML = `
+                <div class="status-header status-aberto">STATUS: CAIXA EM OPERAÇÃO</div>
+                <h3>Fluxo de Hoje</h3>
+                <div class="resumo-valores">
+                    <div class="linha-valor">
+                        <span>Dinheiro Inicial:</span> 
+                        <span>R$ ${dadosCaixa.valorInicial.toFixed(2)}</span>
+                    </div>
+                    <div class="linha-valor">
+                        <span>Vendas (Hoje):</span> 
+                        <span style="color: #27ae60; font-weight: bold;">+ R$ ${totalVendasDia.toFixed(2)}</span>
+                    </div>
+                    <div class="linha-valor total-geral">
+                        <span>TOTAL EM CAIXA:</span> 
+                        <span>R$ ${totalNoCaixa.toFixed(2)}</span>
+                    </div>
+                </div>
+                <button class="btn-acao btn-fechar" onclick="fecharCaixa('${totalNoCaixa.toFixed(2)}')">FECHAR CAIXA E ZERAR</button>
+            `;
+        }
+    }
+
+    function abrirCaixa() {
+        const input = document.getElementById('valorInput');
+        const valor = parseFloat(input.value) || 0;
+        dadosCaixa = { aberto: true, valorInicial: valor };
+        localStorage.setItem('controleCaixa', JSON.stringify(dadosCaixa));
+        carregarTela();
+    }
+
+    function fecharCaixa(total) {
+        if (confirm(`Atenção!\n\nConfirma o fechamento com R$ ${total} em mãos?\nO saldo será zerado para o próximo turno.`)) {
+            localStorage.removeItem('controleCaixa');
+            dadosCaixa = { aberto: false, valorInicial: 0 };
+            alert("Caixa fechado com sucesso!");
+            carregarTela();
+        }
+    }
+
+    window.onload = carregarTela;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes - Gestão Pro</title>
+    <link rel="stylesheet" href="css/EstiloGeral.css?v=1.1">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>📦 Gestão Pro</h2>
+        <hr>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="clientes.html">👥 Clientes</a>
+        <a href="estoque.html">📋 Estoque</a>
+        <a href="pedido.html">🛒 Novo Pedido</a>
+        <a href="financeiro.html" class="botao-final">💰 CAIXA - FINANCEIRO</a> 
+    </div>
+
+    <div class="content">
+        <div class="header-estoque">
+            <h1>Resumo de Inventário</h1>
+            <a href="cadastro.html" class="btn-novo">+ Novo Produto</a>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <input type="text" id="inputPesquisa" placeholder="Pesquisar cliente por nome..." 
+                style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; font-size: 16px;">
+        </div>
+
+        <div class="card-tabela">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>ENDEREÇO</th>
+                        <th>TELEFONE</th> 
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaClientes"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/clientes.js"></script>
+</body>
+</html>

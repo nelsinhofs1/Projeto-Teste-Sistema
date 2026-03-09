@@ -1,0 +1,143 @@
+/* --- CONFIGURAÇÕES GERAIS --- */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    display: flex; 
+    background: #f4f7f6; 
+    color: #333;
+}
+
+/* --- SIDEBAR (BARRA LATERAL) --- */
+.sidebar { 
+    width: 250px; 
+    height: 100vh; 
+    background: #2c3e50; 
+    color: white; 
+    padding: 20px; 
+    position: fixed; 
+    display: flex; 
+    flex-direction: column; 
+    box-sizing: border-box; 
+    z-index: 1000;
+}
+.sidebar h2 { text-align: center; font-size: 1.2rem; margin-bottom: 20px; }
+.sidebar hr { border: 0; border-top: 1px solid #3e4f5f; margin: 15px 0; }
+.sidebar a { 
+    color: white; 
+    text-decoration: none; 
+    display: block; 
+    padding: 12px 10px; 
+    border-bottom: 1px solid #3e4f5f; 
+    transition: 0.3s; 
+}
+.sidebar a:hover { background: #34495e; padding-left: 15px; }
+
+.botao-final { 
+    margin-top: auto; 
+    background: #16a085; 
+    color: white !important; 
+    border-radius: 5px; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 12px;
+    margin-bottom: 10px;
+    border-bottom: none !important;
+}
+
+/* --- ÁREA DE CONTEÚDO --- */
+.content { 
+    margin-left: 250px; 
+    padding: 30px; 
+    width: calc(100% - 250px); 
+    box-sizing: border-box; 
+}
+
+/* --- CABEÇALHOS (TÍTULO + BOTÃO AZUL) --- */
+.header-acoes, .header-estoque {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* BOTÃO AZUL PADRONIZADO */
+/* --- BOTÃO AZUL "BLINDADO" --- */
+.btn-novo {
+    background-color: #3498db !important;
+    color: #ffffff !important;
+    padding: 10px 22px !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    display: inline-flex !important; /* Muda de inline-block para flex */
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    height: 40px; /* Define uma altura fixa para não parecer texto solto */
+}
+
+.btn-novo:hover {
+    background-color: #2980b9 !important;
+}
+
+/* --- CARTÕES (AREA BRANCA) --- */
+.card-tabela {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+
+/* --- TABELAS --- */
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+th { 
+    background: #34495e; 
+    color: white; 
+    padding: 15px; 
+    text-align: left; 
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+td { 
+    padding: 12px 15px; 
+    border-bottom: 1px solid #eee; 
+    vertical-align: middle; 
+}
+tbody tr:hover { background: #f9f9f9; }
+
+/* Botão Excluir e botões dentro de tabelas */
+button.btn-excluir, td button {
+    background-color: #ff4d4d !important;
+    color: white !important;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    transition: 0.3s;
+}
+button.btn-excluir:hover, td button:hover { background-color: #ff3333 !important; }
+
+/* --- BADGES E EXTRAS --- */
+.badge-venda, .badge-orcamento {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+}
+.badge-venda { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+.badge-orcamento { background-color: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; }
+
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+.form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Sistema de Gestão</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f2f5; }
+        .login-card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 300px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>Entrar</h2>
+        <input type="email" id="email" placeholder="E-mail" value="admin@teste.com">
+        <input type="password" id="senha" placeholder="Senha" value="123">
+        <button onclick="fazerLogin()">Acessar Sistema</button>
+        <p id="mensagem"></p>
+    </div>
+
+    <script>
+        async function fazerLogin() {
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            const resposta = await fetch('/api/Usuarios/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, senha })
+            });
+
+            if (resposta.ok) {
+                const dados = await resposta.json();
+                window.location.href = "dashboard.html";
+                // No próximo passo, vamos redirecionar para o painel de estoque!
+            } else {
+                document.getElementById('mensagem').innerText = "Erro ao entrar!";
+            }
+        }
+    </script>
+</body>
+</html>

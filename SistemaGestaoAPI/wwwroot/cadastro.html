@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Produto - Gestão Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; background: #f4f7f6; }
+        
+        /* Sidebar Atualizada com Flexbox */
+        .sidebar { 
+            width: 250px; 
+            height: 100vh; 
+            background: #2c3e50; 
+            color: white; 
+            padding: 20px; 
+            position: fixed; 
+            display: flex; 
+            flex-direction: column; 
+            box-sizing: border-box; 
+            z-index: 100;
+        }
+        .sidebar h2 { text-align: center; font-size: 1.2rem; }
+        .sidebar hr { border: 0; border-top: 1px solid #3e4f5f; margin: 15px 0; }
+        .sidebar a { color: white; text-decoration: none; display: block; padding: 12px 10px; border-bottom: 1px solid #3e4f5f; transition: 0.3s; }
+        .sidebar a:hover { background: #34495e; padding-left: 15px; }
+
+        /* Botão do final */
+        .botao-final { 
+            margin-top: auto; 
+            background: #16a085; 
+            color: white; 
+            border-radius: 5px; 
+            border-bottom: none !important; 
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Área de Conteúdo Centralizada */
+        .content { 
+            margin-left: 250px; 
+            padding: 30px; 
+            width: calc(100% - 250px); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 450px; 
+        }
+
+        h2 { color: #2c3e50; margin-top: 0; text-align: center; }
+        label { display: block; margin-top: 10px; font-weight: bold; color: #34495e; font-size: 14px; }
+        input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            background: #27ae60; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover { background: #219150; }
+        
+        .voltar { display: block; text-align: center; margin-top: 15px; color: #7f8c8d; text-decoration: none; font-size: 14px; }
+        .voltar:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>📦 Gestão Pro</h2>
+    <hr>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="clientes.html">👥 Clientes</a>
+    <a href="estoque.html">📋 Estoque</a>
+    <a href="pedido.html">🛒 Novo Pedido</a>
+    
+     
+    
+    <a href="financeiro.html" class="botao-final">💰 CAIXA - FINANCEIRO</a> 
+</div>
+
+<div class="content">
+    <div class="card">
+        <h2>➕ Cadastrar Produto</h2>
+        
+        <label>Nome do Produto</label>
+        <input type="text" id="nome" placeholder="Ex: Monitor Gamer 24p">
+        
+        <label>Quantidade em Estoque</label>
+        <input type="number" id="estoque" placeholder="0">
+        
+        <label>Preço de Custo (R$)</label>
+        <input type="number" id="custo" step="0.01" placeholder="0.00">
+        
+        <label>Imposto (%)</label>
+        <input type="number" id="imposto" step="0.1" placeholder="Ex: 10">
+        
+        <label>Margem de Lucro (%)</label>
+        <input type="number" id="margem" step="0.1" placeholder="Ex: 50">
+        
+        <button onclick="enviarParaApi()">SALVAR NO ESTOQUE</button>
+        <a href="estoque.html" class="voltar">⬅ Voltar para o Estoque</a>
+    </div>
+</div>
+
+<script>
+    async function enviarParaApi() {
+        // Validação simples
+        const nome = document.getElementById('nome').value;
+        if(!nome) return alert("Por favor, digite o nome do produto.");
+
+        const produto = {
+            nome: nome,
+            lote: "LOTE-" + Math.floor(Math.random() * 9000),
+            validade: "2030-12-31T00:00:00",
+            quantidadeEstoque: parseInt(document.getElementById('estoque').value) || 0,
+            precoCusto: parseFloat(document.getElementById('custo').value) || 0,
+            percentualImposto: parseFloat(document.getElementById('imposto').value) || 0,
+            margemLucro: parseFloat(document.getElementById('margem').value) || 0
+        };
+
+        try {
+            const response = await fetch('/api/Produtos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(produto)
+            });
+
+            if (response.ok) {
+                alert("✅ Produto cadastrado com sucesso!");
+                window.location.href = "estoque.html"; 
+            } else {
+                alert("❌ Erro ao cadastrar. Verifique se o servidor está rodando.");
+            }
+        } catch (error) {
+            alert("❌ Erro de conexão com a API.");
+        }
+    }
+</script>
+
+</body>
+</html>

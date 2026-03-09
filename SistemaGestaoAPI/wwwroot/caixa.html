@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Caixa - Gestão Pro</title>
+    <style>
+        /* Base do Layout padronizada */
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; background: #f4f7f6; }
+        
+        /* Sidebar Atualizada com Flexbox para empurrar o botão para o final */
+        .sidebar { 
+            width: 250px; 
+            height: 100vh; 
+            background: #2c3e50; 
+            color: white; 
+            padding: 20px; 
+            position: fixed; 
+            display: flex; 
+            flex-direction: column; 
+            box-sizing: border-box; 
+            z-index: 100;
+        }
+        .sidebar h2 { text-align: center; font-size: 1.2rem; }
+        .sidebar hr { border: 0; border-top: 1px solid #3e4f5f; margin: 15px 0; }
+        .sidebar a { color: white; text-decoration: none; display: block; padding: 12px 10px; border-bottom: 1px solid #3e4f5f; transition: 0.3s; }
+        .sidebar a:hover { background: #34495e; padding-left: 15px; }
+
+        /* Estilo para o botão do final */
+        .botao-final { 
+            margin-top: auto; /* O segredo para ficar lá embaixo */
+            background: #16a085; 
+            color: white; 
+            border-radius: 5px; 
+            border-bottom: none !important; 
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Área de Conteúdo */
+        .content { margin-left: 270px; padding: 30px; width: calc(100% - 270px); display: flex; flex-direction: column; align-items: center; }
+        
+        /* Card de Venda centralizado */
+        .caixa-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 400px; 
+            margin-top: 50px;
+        }
+
+        h2 { color: #2c3e50; text-align: center; margin-top: 0; }
+        
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 10px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+            font-size: 16px;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            background: #27ae60; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+
+        button:hover { background: #219150; }
+
+        #mensagem { text-align: center; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>📦 Gestão Pro</h2>
+    <hr>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="clientes.html">👥 Clientes</a>
+    <a href="estoque.html">📋 Estoque</a>
+    <a href="pedido.html">🛒 Novo Pedido</a>
+    
+     
+    
+    <a href="financeiro.html" class="botao-final">💰 CAIXA - FINANCEIRO</a> 
+</div>
+
+<div class="content">
+    <h1>Operação de Venda</h1>
+
+    <div class="caixa-card">
+        <h2>🛒 Frente de Caixa</h2>
+        <p style="text-align: center; color: #7f8c8d; font-size: 14px;">Registre a venda rápida abaixo</p>
+        
+        <input type="number" id="produtoId" placeholder="ID do Produto">
+        <input type="number" id="quantidade" placeholder="Quantidade" value="1">
+        
+        <button onclick="realizarVenda()">Finalizar Venda</button>
+        
+        <p id="mensagem"></p>
+    </div>
+</div>
+
+<script>
+    async function realizarVenda() {
+        const prodId = document.getElementById('produtoId').value;
+        const qtd = document.getElementById('quantidade').value;
+
+        if (!prodId || qtd <= 0) {
+            alert("Preencha o ID e a quantidade corretamente!");
+            return;
+        }
+
+        const payload = {
+            produtoId: parseInt(prodId),
+            quantidadeVendida: parseInt(qtd)
+        };
+
+        const msgEl = document.getElementById('mensagem');
+        msgEl.innerText = "Processando...";
+        msgEl.style.color = "#34495e";
+
+        try {
+            const response = await fetch('/api/Vendas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                msgEl.style.color = "green";
+                msgEl.innerText = `✅ Venda Sucesso! Total: R$ ${result.total.toFixed(2)}`;
+                
+                document.getElementById('produtoId').value = "";
+                document.getElementById('quantidade').value = "1";
+            } else {
+                msgEl.style.color = "red";
+                msgEl.innerText = "❌ Erro: Verifique estoque ou ID do produto.";
+            }
+        } catch (error) {
+            msgEl.style.color = "red";
+            msgEl.innerText = "❌ Erro de conexão com o servidor.";
+        }
+    }
+</script>
+
+</body>
+</html>

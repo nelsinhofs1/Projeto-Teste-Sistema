@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Gestão Pro</title>
+    <link rel="stylesheet" href="css/EstiloGeral.css?v=1.1">
+    </head>
+<body>
+
+    <div class="sidebar">
+        <h2>📦 Gestão Pro</h2>
+        <hr>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="clientes.html">👥 Clientes</a>
+        <a href="estoque.html">📋 Estoque</a>
+        <a href="pedido.html">🛒 Novo Pedido</a>
+        <a href="financeiro.html" class="botao-final">💰 CAIXA</a> 
+    </div>
+
+    <div class="content">
+        <div class="header-flex" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1>Resumo de Atividades</h1>
+            <div>
+                <a href="pedido.html" style="background: #3498db; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">+ Novo Pedido</a>
+            </div>
+        </div>
+
+        <div class="card-tabela">
+            <table id="tabelaAtividades">
+                <thead>
+                    <tr>
+                        <th>Atividade</th>
+                        <th>Cliente</th>
+                        <th>Valor Total</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabela">
+                    </tbody>
+            </table>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
