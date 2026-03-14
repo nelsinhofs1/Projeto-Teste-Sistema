@@ -20,11 +20,11 @@ function exibirClientes(lista) {
     lista.forEach(c => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${c.id}</td>
+            <td><b>#${c.id}</b></td>
             <td><b>${c.nome.toUpperCase()}</b></td>
             <td>${c.endereco || '---'}</td>
             <td>${c.telefone || '---'}</td>
-            <td>
+            <td style="text-align: center;">
                 <button onclick="excluirCliente(${c.id})" class="btn-excluir">Excluir</button>
             </td>
         `;

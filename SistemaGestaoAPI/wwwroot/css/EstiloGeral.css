@@ -46,6 +46,21 @@ body {
     margin-bottom: 10px;
     border-bottom: none !important;
 }
+.btn-finalizar {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-finalizar:hover {
+    background: #219150;
+}
 
 /* --- ÁREA DE CONTEÚDO --- */
 .content { 
@@ -78,20 +93,12 @@ body {
 
 /* --- BOTÕES PADRONIZADOS --- */
 .btn-novo {
-    background-color: #3498db !important;
-    color: #ffffff !important;
-    padding: 10px 22px !important;
-    border-radius: 6px !important;
-    text-decoration: none !important;
-    font-weight: bold !important;
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    border: none !important;
-    cursor: pointer !important;
-    font-size: 14px !important;
-    height: 40px;
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
 }
 .btn-novo:hover { background-color: #2980b9 !important; }
 

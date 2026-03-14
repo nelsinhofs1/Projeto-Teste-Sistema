@@ -32,16 +32,12 @@ async function carregarResumo() {
 
         // 2. Prepara os Orçamentos do LocalStorage
         const listaOrcamentos = orcamentosLocais.map((o, index) => {
-            // Converte string de data "DD/MM/AAAA" para objeto Date
-            const partes = o.data.split('/');
-            const dataObj = partes.length === 3 ? new Date(partes[2], partes[1] - 1, partes[0]) : new Date();
-            
             return {
                 label: `[ORÇAMENTO]`,
-                cor: '#f39c12', // Laranja
+                cor: '#f39c12',
                 cliente: o.cliente,
                 total: parseFloat(o.total) || 0,
-                data: dataObj,
+                data: new Date(o.data),
                 btnExcluir: `excluirOrcamento(${index})`
             };
         });
@@ -71,8 +67,22 @@ async function carregarResumo() {
 // Funções de exclusão permanecem...
 async function excluirVenda(id) {
     if(!confirm("Excluir esta venda permanentemente?")) return;
-    await fetch(`/api/Vendas/${id}`, { method: 'DELETE' });
-    location.reload();
+    
+    try {
+        const res = await fetch(`/api/Vendas/${id}`, { method: 'DELETE' });
+        console.log("Status:", res.status);
+        
+        if(res.ok) {
+            location.reload();
+        } else {
+            const erro = await res.text();
+            console.error("Erro ao excluir:", erro);
+            alert("Erro: " + res.status + " - " + erro);
+        }
+    } catch(err) {
+        console.error("Erro de conexão:", err);
+        alert("Erro de conexão: " + err.message);
+    }
 }
 
 function excluirOrcamento(index) {

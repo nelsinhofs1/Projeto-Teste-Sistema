@@ -61,4 +61,14 @@ public class VendasController : ControllerBase
             return BadRequest(new { mensagem = "Erro no Banco: " + ex.InnerException?.Message ?? ex.Message });
         }
     }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteVenda(int id)
+    {
+        var venda = await _context.Vendas.FindAsync(id);
+        if (venda == null) return NotFound();
+
+        _context.Vendas.Remove(venda);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }

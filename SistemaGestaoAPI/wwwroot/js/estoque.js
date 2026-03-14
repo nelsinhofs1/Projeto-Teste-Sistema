@@ -27,7 +27,7 @@ function exibirProdutos(lista) {
     tbody.innerHTML = lista.map(p => `
         <tr>
             <td><b>#${p.id}</b></td>
-            <td>${p.nome.toUpperCase()}</td>
+            <td><b>${p.nome.toUpperCase()}</b></td>
             <td>${p.quantidadeEstoque} unidades</td>
             <td>R$ ${p.precoVenda.toFixed(2)}</td>
             <td><span class="badge" style="background: #d4edda; color: #155724; padding: 5px 10px; border-radius: 20px; font-size: 11px;">✅ EM DIA</span></td>

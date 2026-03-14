@@ -11,8 +11,7 @@ async function carregarDados() {
         ]);
         produtosAPI = await resProd.json();
         clientesAPI = await resCli.json();
-        console.log("Produtos carregados:", produtosAPI);
-        console.log("Clientes carregados:", clientesAPI);
+        popularDatalist(); // ← ADICIONE ESSA LINHA
         verificarRascunho();
     } catch (err) { console.error("Erro ao carregar dados da API:", err); }
 }
@@ -33,6 +32,19 @@ function verificarRascunho() {
         }
         localStorage.removeItem('orcamento_em_edicao');
     }
+}
+
+function popularDatalist() {
+    const listaClientes = document.getElementById('listaClientes');
+    const listaProdutos = document.getElementById('listaProdutos');
+
+    listaClientes.innerHTML = clientesAPI
+        .map(c => `<option value="${c.nome}"></option>`)
+        .join('');
+
+    listaProdutos.innerHTML = produtosAPI
+        .map(p => `<option value="${p.nome}"></option>`)
+        .join('');
 }
 
 window.adicionarAoCarrinho = function() {
@@ -116,12 +128,12 @@ window.finalizarOperacao = async function() {
     } else {
         // Lógica de Orçamento
         let orcamentos = JSON.parse(localStorage.getItem('orcamentos') || "[]");
-        orcamentos.push({ 
-            cliente: nomeCliente, 
-            total: document.getElementById('valorTotal').innerText, 
-            data: new Date().toLocaleDateString(), 
-            itens: carrinho 
-        });
+            orcamentos.push({ 
+                cliente: nomeCliente, 
+                total: document.getElementById('valorTotal').innerText, 
+                data: new Date().toISOString(), // ← vira essa
+                itens: carrinho 
+            });
         localStorage.setItem('orcamentos', JSON.stringify(orcamentos));
         alert("Orçamento Salvo localmente!");
         window.location.href = "dashboard.html";
