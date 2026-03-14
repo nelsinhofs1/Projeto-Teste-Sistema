@@ -18,20 +18,26 @@
     <a href="financeiro.html" class="botao-final">💰 CAIXA - FINANCEIRO</a> 
 </div>
 
-<div class="content">
-    <div class="card-tabela" style="max-width: 500px; width: 100%;">
-        <h2 style="text-align: center; color: #2c3e50;">👤 Novo Cadastro de Cliente</h2>
+    <div class="content centralizar-item">
+        <div class="card-formulario" style="max-width: 450px;">
+        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">👤 Novo Cadastro de Cliente</h2>
         
-        <label style="display: block; font-weight: bold; margin-top: 15px;">Nome Completo / Razão Social</label>
-        <input type="text" id="nomeCliente" placeholder="Ex: João da Silva ou Empresa LTDA">
+        <div class="form-group">
+            <label>Nome Completo / Razão Social</label>
+            <input type="text" id="nomeCliente" placeholder="Ex: João da Silva ou Empresa LTDA">
+        </div>
         
-        <label style="display: block; font-weight: bold; margin-top: 15px;">Endereço Completo</label>
-        <input type="text" id="enderecoCliente" placeholder="Rua, Número, Bairro, Cidade - UF">
+        <div class="form-group">
+            <label>Endereço Completo</label>
+            <input type="text" id="enderecoCliente" placeholder="Rua, Número, Bairro, Cidade - UF">
+        </div>
         
-        <label style="display: block; font-weight: bold; margin-top: 15px;">Telefone (Opcional)</label>
-        <input type="text" id="telefoneCliente" placeholder="(00) 00000-0000">
+        <div class="form-group">
+            <label>Telefone (Opcional)</label>
+            <input type="text" id="telefoneCliente" placeholder="(00) 00000-0000">
+        </div>
 
-        <button class="btn-novo" style="width: 100%; margin-top: 20px; height: 45px; background-color: #27ae60 !important;" onclick="salvarCliente()">
+        <button class="btn-sucesso" style="width: 100%; margin-top: 10px;" onclick="salvarCliente()">
             CADASTRAR CLIENTE
         </button>
         
