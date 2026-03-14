@@ -26,7 +26,8 @@ async function carregarResumo() {
                 cliente: cli ? cli.nome : "Cliente não identificado",
                 total: v.valorTotal,
                 data: new Date(v.dataVenda), // Data da API
-                btnExcluir: `excluirVenda(${v.id})`
+                btnExcluir: `excluirVenda(${v.id})`,
+                btnVer: `verVenda(${v.id})`
             };
         });
 
@@ -38,7 +39,8 @@ async function carregarResumo() {
                 cliente: o.cliente,
                 total: parseFloat(o.total) || 0,
                 data: new Date(o.data),
-                btnExcluir: `excluirOrcamento(${index})`
+                btnExcluir: `excluirOrcamento(${index})`,
+                btnVer: `verOrcamento(${index})`
             };
         });
 
@@ -50,7 +52,7 @@ async function carregarResumo() {
         tudoJunto.forEach(item => {
             tbody.innerHTML += `
                 <tr>
-                    <td><span style="color: ${item.cor}; font-weight: bold; background: #f0f0f0; padding: 2px 5px; border-radius: 4px;">${item.label}</span></td>
+                    <td><span onclick="${item.btnVer}" style="color: ${item.cor}; font-weight: bold; background: #f0f0f0; padding: 2px 5px; border-radius: 4px; cursor:pointer; text-decoration: underline;">${item.label}</span></td>
                     <td><strong>${item.cliente.toUpperCase()}</strong></td>
                     <td>R$ ${item.total.toFixed(2)}</td>
                     <td>${item.data.toLocaleDateString('pt-BR')} ${item.data.getHours()}:${String(item.data.getMinutes()).padStart(2, '0')}</td>
@@ -91,6 +93,54 @@ function excluirOrcamento(index) {
     orcs.splice(index, 1);
     localStorage.setItem('orcamentos', JSON.stringify(orcs));
     location.reload();
+}
+
+function verOrcamento(index) {
+    const orcs = JSON.parse(localStorage.getItem('orcamentos') || "[]");
+    const orc = orcs[index];
+    localStorage.setItem('orcamento_em_edicao', JSON.stringify({
+        index: index,
+        cliente: orc.cliente,
+        itens: orc.itens
+    }));
+    window.location.href = "pedido.html";
+}
+
+async function verVenda(id) {
+    try {
+        const [resVendas, resProdutos, resClientes] = await Promise.all([
+            fetch('/api/Vendas'),
+            fetch('/api/Produtos'),
+            fetch('/api/Clientes')
+        ]);
+        const vendas = await resVendas.json();
+        const produtos = await resProdutos.json();
+        const clientes = await resClientes.json();
+
+        // Agrupa todas as vendas do mesmo pedido pelo clienteId e data próxima
+        const venda = vendas.find(v => v.id === id);
+        if (!venda) return alert("Venda não encontrada!");
+
+        const produto = produtos.find(p => p.id === venda.produtoId);
+        const cliente = clientes.find(c => c.id === venda.clienteId);
+
+        localStorage.setItem('venda_visualizar', JSON.stringify({
+            id: venda.id,
+            cliente: cliente ? cliente.nome : "Desconhecido",
+            itens: [{
+                produtoId: venda.produtoId,
+                nome: produto ? produto.nome : "Produto #" + venda.produtoId,
+                quantidade: venda.quantidadeVendida,
+                preco: produto ? produto.precoVenda : 0
+            }],
+            total: venda.valorTotal
+        }));
+
+        window.location.href = "pedido.html";
+    } catch(err) {
+        console.error(err);
+        alert("Erro ao carregar venda!");
+    }
 }
 
 window.onload = carregarResumo;

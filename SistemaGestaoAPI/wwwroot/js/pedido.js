@@ -17,6 +17,7 @@ async function carregarDados() {
 }
 
 function verificarRascunho() {
+    // Verificar orçamento em edição
     const rascunho = localStorage.getItem('orcamento_em_edicao');
     if (rascunho) {
         const dados = JSON.parse(rascunho);
@@ -31,6 +32,32 @@ function verificarRascunho() {
             renderizarTabela();
         }
         localStorage.removeItem('orcamento_em_edicao');
+        return;
+    }
+
+    // Verificar venda para visualizar
+    const vendaJson = localStorage.getItem('venda_visualizar');
+    if (vendaJson) {
+        const dados = JSON.parse(vendaJson);
+
+        document.getElementById('buscaCliente').value = dados.cliente || "";
+        document.getElementById('tipoOperacao').disabled = true;
+        document.getElementById('tituloPagina').innerText = "📋 Detalhes da Venda #" + dados.id;
+
+        carrinho = dados.itens;
+        renderizarTabela();
+        localStorage.removeItem('venda_visualizar');
+
+        // Botão PEDIDO FATURADO
+        const btn = document.getElementById('btnFinalizar');
+        btn.innerText = "✅ PEDIDO FATURADO";
+        btn.disabled = true;
+        btn.style.background = "#e74c3c";
+        btn.style.cursor = "default";
+        btn.onclick = null;
+
+        // Esconde o painel de adicionar produto
+        document.getElementById('buscaNome').closest('div').style.display = 'none';
     }
 }
 

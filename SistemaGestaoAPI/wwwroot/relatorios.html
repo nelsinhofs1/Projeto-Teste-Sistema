@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatórios - Gestão Pro</title>
+    <link rel="stylesheet" href="css/EstiloGeral.css?v=1.1">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>📦 Gestão Pro</h2>
+    <hr>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="clientes.html">👥 Clientes</a>
+    <a href="estoque.html">📋 Estoque</a>
+    <a href="pedido.html">🛒 Novo Pedido</a>
+    <a href="relatorios.html">📊 Relatórios</a>
+    <a href="financeiro.html" class="botao-final">💰 CAIXA</a>
+</div>
+
+<div class="content">
+    <div class="header-estoque">
+        <h1>📊 Relatório de Vendas</h1>
+    </div>
+
+    <div class="card-tabela" style="margin-bottom: 20px; padding: 20px;">
+        <div style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+            <div>
+                <label style="display:block; font-weight:bold; margin-bottom:5px;">Data Inicial</label>
+                <input type="date" id="dataInicial" style="padding:10px; border:1px solid #ddd; border-radius:6px; font-size:14px;">
+            </div>
+            <div>
+                <label style="display:block; font-weight:bold; margin-bottom:5px;">Data Final</label>
+                <input type="date" id="dataFinal" style="padding:10px; border:1px solid #ddd; border-radius:6px; font-size:14px;">
+            </div>
+            <button class="btn-novo" onclick="filtrar()">🔍 Filtrar</button>
+            <button onclick="limparFiltro()" style="padding:10px 20px; border:1px solid #ddd; border-radius:5px; background:white; cursor:pointer; font-size:14px;">✖ Limpar</button>
+        </div>
+    </div>
+
+    <div class="card-tabela" style="margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+            <div style="background:#d4edda; padding:15px 25px; border-radius:8px; text-align:center; flex:1;">
+                <div style="font-size:13px; color:#155724;">TOTAL DE VENDAS</div>
+                <div style="font-size:22px; font-weight:bold; color:#155724;" id="totalVendas">R$ 0.00</div>
+            </div>
+            <div style="background:#d1ecf1; padding:15px 25px; border-radius:8px; text-align:center; flex:1;">
+                <div style="font-size:13px; color:#0c5460;">Nº DE PEDIDOS</div>
+                <div style="font-size:22px; font-weight:bold; color:#0c5460;" id="numeroPedidos">0</div>
+            </div>
+            <div style="background:#fff3cd; padding:15px 25px; border-radius:8px; text-align:center; flex:1;">
+                <div style="font-size:13px; color:#856404;">TICKET MÉDIO</div>
+                <div style="font-size:22px; font-weight:bold; color:#856404;" id="ticketMedio">R$ 0.00</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-tabela">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Produto</th>
+                    <th>Qtd</th>
+                    <th>Valor Total</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaRelatorio">
+                <tr><td colspan="6" style="text-align:center;">Carregando...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="js/relatorios.js"></script>
+</body>
+</html>
