@@ -156,7 +156,6 @@ C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\0j0xor0j66-{0}-j10vokq54h-j10vokq54h.gz
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\je0sz3gq4x-{0}-9kl10qdows-9kl10qdows.gz
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\ulmiirkka3-{0}-skd4lp4ww3-skd4lp4ww3.gz
-C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\bqv774jk06-{0}-wze4c8fl8c-wze4c8fl8c.gz
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\j7y4yijj4d-{0}-6kr2jft8f5-6kr2jft8f5.gz
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\6qfc9364wm-{0}-8pmisf0xp6-8pmisf0xp6.gz
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\kqpheh27ed-{0}-dn52uetdr9-dn52uetdr9.gz
@@ -169,3 +168,4 @@ C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\hocg5jcejv-{0}-4nm7ecwvjy-4nm7ecwvjy.gz
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\fw8b751m8z-{0}-1e4c9b50nr-1e4c9b50nr.gz
 C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\pshtxinhqi-{0}-y3396izlu5-y3396izlu5.gz
+C:\Users\nelsi\OneDrive\Desktop\ESTUDO\SISTEMA\SistemaGestaoAPI\obj\Debug\net10.0\compressed\bqv774jk06-{0}-w1z2afbcux-w1z2afbcux.gz
